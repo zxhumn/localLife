@@ -1,0 +1,13 @@
+<!--pages/list/list.wxml-->
+<view>
+  <block wx:for="{{shops}}" wx:key="item.id">
+    <shopList shop="{{item}}"/>
+  </block>
+  <!-- 下拉加载 -->
+  <view wx:if="{{hasMore}}" class="loadMore loading">
+    <text>加载更多</text>
+  </view>
+  <view wx:if="{{!hasMore}}" class="loadMore">
+    <text>没有更多数据了</text>
+  </view>
+</view>
