@@ -12,6 +12,7 @@ Page({
     shops:[],
     hasMore:true,
     isLoading:false,
+    keywords:null,
   },
 
   /**
@@ -25,13 +26,33 @@ Page({
     }),
       this.getShopList();
   },
+  // 搜索
+  searchShops(e) {
+    // console.log(e.detail)
+    this.data.keywords = e.detail;
+    this.data.pageIndex = 0;
+    this.setData({
+      isMore :true,
+      isLoading :false,
+      shops :[],
+    },()=>{
+      this.getShopList()
+    })
+    
+   
+  },
   getShopList(){
     if(!this.data.hasMore) return;
     if(this.data.isLoading) return;
     this.data.isLoading = true;
     this.data.pageIndex++;
+    let url = null;
+    if (this.data.keywords){
+      url = `categories/${this.data.id}/shops?_page=${this.data.pageIndex}&_limit=${this.data.pageSize}&q=${this.data.keywords}`;
+    }else{
+      url = `categories/${this.data.id}/shops?_page=${this.data.pageIndex}&_limit=${this.data.pageSize}`;
+    }
     
-    const url = `categories/${this.data.id}/shops?_page=${this.data.pageIndex}&_limit=${this.data.pageSize}`;
     fetch(url).then(res=>{     
       wx.stopPullDownRefresh()
 
@@ -52,6 +73,7 @@ Page({
   onReady: function () {
   
   },
+  
 
   /**
    * 生命周期函数--监听页面显示

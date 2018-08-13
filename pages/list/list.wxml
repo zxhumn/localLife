@@ -1,7 +1,11 @@
 <!--pages/list/list.wxml-->
 <view>
+<!-- 引入搜索框 -->
+  <search_bar bind:onSerachBarConfirm="searchShops" />
   <block wx:for="{{shops}}" wx:key="item.id">
-    <shopList shop="{{item}}"/>
+  <navigator url="/pages/detail/detail?id={{item.id}}">
+    <shopList  shop="{{item}}"/>
+    </navigator>
   </block>
   <!-- 下拉加载 -->
   <view wx:if="{{hasMore}}" class="loadMore loading">
